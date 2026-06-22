@@ -1,0 +1,18 @@
+#include <ESP32Servo.h>
+
+Servo myServo;
+
+void setup() {
+  myServo.attach(18);   // GPIO18
+}
+
+void loop() {
+  myServo.write(0);     // open
+  delay(2000);
+
+  myServo.write(90);    // middle
+  delay(2000);
+
+  myServo.write(180);   // close
+  delay(2000);
+}
