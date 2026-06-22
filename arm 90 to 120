@@ -1,0 +1,35 @@
+ #include <Wire.h>
+#include <Adafruit_PWMServoDriver.h>
+
+Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
+
+#define SERVO_CHANNEL 3
+
+// Approximate pulse values
+#define POS_90  375   // 90°
+#define POS_120 442   // 120°
+
+void setup() {
+  Wire.begin(21, 22);   // ESP32 SDA, SCL
+  pwm.begin();
+  pwm.setPWMFreq(50);
+}
+
+void loop() {
+
+  // Move from 90° to 120°
+  for (int pos = POS_90; pos <= POS_120; pos++) {
+    pwm.setPWM(SERVO_CHANNEL, 0, pos);
+    delay(15);
+  }
+
+  delay(1000);
+
+  // Move from 120° back to 90°
+  for (int pos = POS_120; pos >= POS_90; pos--) {
+    pwm.setPWM(SERVO_CHANNEL, 0, pos);
+    delay(15);
+  }
+
+  delay(1000);
+}
